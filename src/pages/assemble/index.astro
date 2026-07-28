@@ -1,5 +1,171 @@
 ---
-import Placeholder from '../../layouts/Placeholder.astro';
+import AssembleLayout from '../../layouts/AssembleLayout.astro';
+
+const apps = [
+	{
+		href: '/assemble/prelude',
+		step: '01 — Prepare',
+		platform: 'macOS',
+		name: 'Assemble Prelude',
+		tagline: 'Plan songs. Build setlists. Rehearse confidently.',
+		accent: '#d9a441',
+	},
+	{
+		href: '/assemble/live',
+		step: '02 — Perform',
+		platform: 'macOS',
+		name: 'Assemble Live',
+		tagline: 'Create the experience. Run every moment with confidence.',
+		accent: '#ff6a3d',
+	},
+	{
+		href: '/assemble/director',
+		step: '03 — Direct',
+		platform: 'iPhone & iPad · in development',
+		name: 'Assemble Director',
+		tagline: "Run the show from wherever you're standing.",
+		accent: '#52b6cc',
+	},
+];
 ---
 
-<Placeholder title="Assemble" heading="ASSEMBLE" />
+<AssembleLayout title="Assemble — worship & band software">
+	<header class="hero">
+		<p class="eyebrow mono">Assemble — worship &amp; band software</p>
+		<h1 class="title futura">
+			Prepare the set.<br />Run the room.<br />Direct from anywhere.
+		</h1>
+		<p class="lede">
+			Assemble is a small family of apps that carry a song from the first chord chart to the last
+			note of a live set — one shared library, three purpose-built tools.
+		</p>
+	</header>
+
+	<div class="links">
+		{
+			apps.map((app) => (
+				<a class="link-card" href={app.href} style={`--card-accent: ${app.accent}`}>
+					<div class="link-top mono">
+						<span class="step">{app.step}</span>
+						<span class="platform">{app.platform}</span>
+					</div>
+					<div class="link-name futura">
+						<span class="dot" />
+						{app.name}
+					</div>
+					<p class="link-tagline">{app.tagline}</p>
+					<span class="go">Read more →</span>
+				</a>
+			))
+		}
+	</div>
+</AssembleLayout>
+
+<style>
+	.hero {
+		margin-bottom: 72px;
+	}
+
+	.eyebrow {
+		font-size: 12.5px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--faint);
+		margin-bottom: 18px;
+	}
+
+	.title {
+		font-size: clamp(32px, 5vw, 46px);
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		margin: 0 0 20px;
+		text-wrap: balance;
+	}
+
+	.lede {
+		font-size: 18px;
+		color: var(--muted);
+		max-width: 58ch;
+		margin: 0;
+	}
+
+	.links {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.link-card {
+		display: block;
+		text-decoration: none;
+		border: 1px solid var(--hair);
+		border-radius: 12px;
+		padding: 22px 24px;
+		background: var(--surface);
+		transition:
+			border-color 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.link-card:hover {
+		border-color: var(--card-accent);
+		transform: translateX(2px);
+	}
+
+	.link-top {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		font-size: 12.5px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 14px;
+	}
+
+	.link-top .step {
+		color: var(--faint);
+	}
+
+	.link-top .platform {
+		padding: 3px 9px;
+		border-radius: 5px;
+		background: var(--surface-2);
+		color: var(--muted);
+		letter-spacing: 0.04em;
+	}
+
+	.link-name {
+		font-size: 22px;
+		font-weight: 500;
+		margin-bottom: 8px;
+		display: flex;
+		align-items: center;
+	}
+
+	.link-name .dot {
+		display: inline-block;
+		width: 9px;
+		height: 9px;
+		border-radius: 50%;
+		background: var(--card-accent);
+		margin-right: 12px;
+	}
+
+	.link-tagline {
+		font-size: 15px;
+		font-style: italic;
+		color: var(--muted);
+		margin: 0 0 14px;
+	}
+
+	.go {
+		font-size: 13.5px;
+		color: var(--card-accent);
+	}
+
+	@media (max-width: 560px) {
+		.link-card {
+			padding: 18px 20px;
+		}
+	}
+</style>

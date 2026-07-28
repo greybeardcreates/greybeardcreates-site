@@ -1,5 +1,144 @@
 ---
-import Placeholder from '../../layouts/Placeholder.astro';
+import AssembleLayout from '../../layouts/AssembleLayout.astro';
+import AssembleNav from '../../components/AssembleNav.astro';
+
+const accent = '#d9a441';
+
+const features = [
+	{
+		label: 'Chord chart editor',
+		desc: 'Write in ChordPro with live formatting, auto-pagination, transpose, and capo — always readable at any key.',
+	},
+	{
+		label: 'Import from anywhere',
+		desc: 'Bring in Guitar Pro files, scanned or PDF charts (with OCR), and PraiseCharts purchases without retyping a thing.',
+	},
+	{
+		label: 'Hymn library',
+		desc: 'Search a built-in database of thousands of hymn texts and tunes, with matching suggestions for public-domain songs.',
+	},
+	{
+		label: 'Setlists',
+		desc: 'Order songs for a service, override the key per occurrence, and attach rehearsal notes tagged to the instrument they’re for.',
+	},
+	{
+		label: 'Bands & organizations',
+		desc: 'Share a song library across your team with invite codes, roles, and org-wide libraries for multi-band churches.',
+	},
+	{
+		label: 'Cloud sync',
+		desc: 'Every chart and setlist syncs automatically, with conflict resolution if two people edit the same song at once.',
+	},
+];
 ---
 
-<Placeholder title="Assemble Prelude" heading="PRELUDE COMING SOON…" />
+<AssembleLayout
+	title="Assemble Prelude — plan songs, build setlists"
+	description="Assemble Prelude is where a set comes together before anyone plays a note — ChordPro charts, imports, a hymn library, and shared setlists."
+	accent={accent}
+>
+	<AssembleNav appName="Prelude" />
+
+	<div class="app-eyebrow mono">
+		<span class="step">01 — Prepare</span>
+		<span class="platform">macOS</span>
+	</div>
+	<h1 class="app-name futura"><span class="dot" style={`background:${accent}`} />Assemble Prelude</h1>
+	<p class="tagline" style={`color:${accent}`}>Plan songs. Build setlists. Rehearse confidently.</p>
+	<p class="pitch">
+		Prelude is where a set comes together before anyone plays a note. Write and format chord charts
+		in ChordPro, pull songs in from Guitar Pro tabs, scanned PDFs, or PraiseCharts, and arrange them
+		into setlists with keys, transitions, and rehearsal notes your whole team can see.
+	</p>
+
+	<div class="features">
+		{
+			features.map((f) => (
+				<div class="feature">
+					<div class="label">{f.label}</div>
+					<div class="desc">{f.desc}</div>
+				</div>
+			))
+		}
+	</div>
+</AssembleLayout>
+
+<style>
+	.app-eyebrow {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		font-size: 13px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 22px;
+	}
+	.app-eyebrow .step {
+		color: var(--faint);
+	}
+	.app-eyebrow .platform {
+		padding: 3px 9px;
+		border-radius: 5px;
+		background: var(--surface-2);
+		color: var(--muted);
+		letter-spacing: 0.04em;
+	}
+
+	.app-name {
+		font-size: clamp(28px, 4.5vw, 36px);
+		font-weight: 500;
+		margin: 0 0 10px;
+		display: flex;
+		align-items: center;
+	}
+	.dot {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		margin-right: 14px;
+	}
+
+	.tagline {
+		font-size: 18px;
+		font-style: italic;
+		margin: 0 0 24px;
+	}
+
+	.pitch {
+		max-width: 66ch;
+		font-size: 16px;
+		color: var(--ink);
+		margin: 0 0 34px;
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2px;
+		background: var(--hair);
+		border: 1px solid var(--hair);
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.feature {
+		background: var(--surface);
+		padding: 18px 20px;
+	}
+	.feature .label {
+		font-weight: 600;
+		font-size: 14.5px;
+		margin-bottom: 4px;
+	}
+	.feature .desc {
+		font-size: 13.5px;
+		color: var(--muted);
+		line-height: 1.5;
+	}
+
+	@media (max-width: 560px) {
+		.features {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

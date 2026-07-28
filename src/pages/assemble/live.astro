@@ -1,5 +1,144 @@
 ---
-import Placeholder from '../../layouts/Placeholder.astro';
+import AssembleLayout from '../../layouts/AssembleLayout.astro';
+import AssembleNav from '../../components/AssembleNav.astro';
+
+const accent = '#ff6a3d';
+
+const features = [
+	{
+		label: 'Flows',
+		desc: 'A scheduled run-of-show mixing songs, setlists, text slides, and images — timed to a real start time.',
+	},
+	{
+		label: 'Three synced displays',
+		desc: 'Stage Display for performers, Audience Display for the room, and Stage Server — a live browser view any phone on the network can open.',
+	},
+	{
+		label: 'Flow Actions',
+		desc: 'Countdown overlays, automatic volume ramps, and app control (like pausing Spotify) — timed to the schedule, chained together, or fired instantly.',
+	},
+	{
+		label: 'Musician tabs',
+		desc: 'Per-instrument guitar tab display that tracks the current section live, right alongside the chord chart.',
+	},
+	{
+		label: 'Live rehearsal notes',
+		desc: 'Notes tagged to an instrument or section surface automatically as the set moves — no separate cue sheet.',
+	},
+	{
+		label: 'Zero-install remote view',
+		desc: 'Stage Server runs from Live itself — anyone with the address and a browser is watching in seconds.',
+	},
+];
 ---
 
-<Placeholder title="Assemble Live" heading="LIVE COMING SOON…" />
+<AssembleLayout
+	title="Assemble Live — run the room"
+	description="Assemble Live turns a setlist into a scheduled, multi-display run-of-show — Stage Display, Audience Display, and a zero-install Stage Server, plus Flow Actions like countdowns and volume ramps."
+	accent={accent}
+>
+	<AssembleNav appName="Live" />
+
+	<div class="app-eyebrow mono">
+		<span class="step">02 — Perform</span>
+		<span class="platform">macOS</span>
+	</div>
+	<h1 class="app-name futura"><span class="dot" style={`background:${accent}`} />Assemble Live</h1>
+	<p class="tagline" style={`color:${accent}`}>Create the experience. Run every moment with confidence.</p>
+	<p class="pitch">
+		Live turns a setlist into a run-of-show. Schedule a Flow, drive it from one screen, and let
+		Live handle three audiences at once: the performers on stage, the congregation out front, and
+		anyone following along on their own phone or tablet — no extra software required.
+	</p>
+
+	<div class="features">
+		{
+			features.map((f) => (
+				<div class="feature">
+					<div class="label">{f.label}</div>
+					<div class="desc">{f.desc}</div>
+				</div>
+			))
+		}
+	</div>
+</AssembleLayout>
+
+<style>
+	.app-eyebrow {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		font-size: 13px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 22px;
+	}
+	.app-eyebrow .step {
+		color: var(--faint);
+	}
+	.app-eyebrow .platform {
+		padding: 3px 9px;
+		border-radius: 5px;
+		background: var(--surface-2);
+		color: var(--muted);
+		letter-spacing: 0.04em;
+	}
+
+	.app-name {
+		font-size: clamp(28px, 4.5vw, 36px);
+		font-weight: 500;
+		margin: 0 0 10px;
+		display: flex;
+		align-items: center;
+	}
+	.dot {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		margin-right: 14px;
+	}
+
+	.tagline {
+		font-size: 18px;
+		font-style: italic;
+		margin: 0 0 24px;
+	}
+
+	.pitch {
+		max-width: 66ch;
+		font-size: 16px;
+		color: var(--ink);
+		margin: 0 0 34px;
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2px;
+		background: var(--hair);
+		border: 1px solid var(--hair);
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.feature {
+		background: var(--surface);
+		padding: 18px 20px;
+	}
+	.feature .label {
+		font-weight: 600;
+		font-size: 14.5px;
+		margin-bottom: 4px;
+	}
+	.feature .desc {
+		font-size: 13.5px;
+		color: var(--muted);
+		line-height: 1.5;
+	}
+
+	@media (max-width: 560px) {
+		.features {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

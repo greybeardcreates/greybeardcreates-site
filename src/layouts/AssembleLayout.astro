@@ -1,0 +1,82 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+	accent?: string;
+}
+
+const { title, description = 'Assemble — worship and band software.', accent = '#d9a441' } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+	</head>
+	<body style={`--accent: ${accent};`}>
+		<div class="page">
+			<slot />
+		</div>
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--bg: #0b0b0c;
+		--surface: #161513;
+		--surface-2: #201e1a;
+		--ink: #f3ede2;
+		--muted: #a49a8a;
+		--faint: #726955;
+		--hair: rgba(243, 237, 226, 0.12);
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		background: var(--bg);
+		color: var(--ink);
+	}
+
+	body {
+		font-family: -apple-system, 'SF Pro Text', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		line-height: 1.55;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	.mono {
+		font-family: ui-monospace, 'SF Mono', 'Menlo', 'Cascadia Mono', monospace;
+	}
+
+	.futura {
+		font-family: 'Futura-Medium', 'Futura', 'Century Gothic', sans-serif;
+		font-weight: 500;
+	}
+
+	a {
+		color: inherit;
+	}
+</style>
+
+<style>
+	.page {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 72px 24px 110px;
+	}
+
+	@media (max-width: 560px) {
+		.page {
+			padding: 48px 18px 80px;
+		}
+	}
+</style>

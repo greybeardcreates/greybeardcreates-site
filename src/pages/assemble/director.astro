@@ -1,5 +1,154 @@
 ---
-import Placeholder from '../../layouts/Placeholder.astro';
+import AssembleLayout from '../../layouts/AssembleLayout.astro';
+import AssembleNav from '../../components/AssembleNav.astro';
+
+const accent = '#52b6cc';
+
+const features = [
+	{
+		label: 'Full Flow navigation',
+		desc: 'Step forward and back through songs and sections exactly like the Director pane in Live.',
+	},
+	{
+		label: 'Live rehearsal notes',
+		desc: 'See the same instrument-tagged notes and section highlights your Live setup already tracks.',
+	},
+	{
+		label: 'Untethered control',
+		desc: 'Walk the platform, stand with the band, or work the room — Director talks straight to Live over your network.',
+	},
+	{
+		label: 'Same Flow, same Actions',
+		desc: 'Built on the same Flows and Flow Actions already running in Live — nothing to reconfigure, nothing to duplicate.',
+	},
+];
 ---
 
-<Placeholder title="Assemble Director" heading="DIRECTOR COMING SOON…" />
+<AssembleLayout
+	title="Assemble Director — direct from anywhere"
+	description="Assemble Director is an iPhone and iPad companion to Assemble Live, putting the Director pane's Flow navigation and rehearsal notes in your hand."
+	accent={accent}
+>
+	<AssembleNav appName="Director" />
+
+	<div class="app-eyebrow mono">
+		<span class="step">03 — Direct</span>
+		<span class="platform">iPhone &amp; iPad · in development</span>
+	</div>
+	<h1 class="app-name futura">
+		<span class="dot" style={`background:${accent}`} />Assemble Director
+	</h1>
+	<p class="tagline" style={`color:${accent}`}>Run the show from wherever you're standing.</p>
+	<p class="pitch">
+		Director takes the Director pane out of the Mac and puts it in your hand. It's the same view
+		you already drive a Flow from in Live — song order, current section, rehearsal notes —
+		rebuilt as a native iOS app, so directing a live set no longer means standing at the machine
+		that runs it.
+	</p>
+
+	<div class="features">
+		{
+			features.map((f) => (
+				<div class="feature">
+					<div class="label">{f.label}</div>
+					<div class="desc">{f.desc}</div>
+				</div>
+			))
+		}
+	</div>
+
+	<p class="status-note">
+		Assemble Director is currently in planning. It will pair with Assemble Live over the same
+		network your Stage Server already uses today.
+	</p>
+</AssembleLayout>
+
+<style>
+	.app-eyebrow {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		font-size: 13px;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 22px;
+	}
+	.app-eyebrow .step {
+		color: var(--faint);
+	}
+	.app-eyebrow .platform {
+		padding: 3px 9px;
+		border-radius: 5px;
+		background: var(--surface-2);
+		color: var(--muted);
+		letter-spacing: 0.04em;
+	}
+
+	.app-name {
+		font-size: clamp(28px, 4.5vw, 36px);
+		font-weight: 500;
+		margin: 0 0 10px;
+		display: flex;
+		align-items: center;
+	}
+	.dot {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		margin-right: 14px;
+	}
+
+	.tagline {
+		font-size: 18px;
+		font-style: italic;
+		margin: 0 0 24px;
+	}
+
+	.pitch {
+		max-width: 66ch;
+		font-size: 16px;
+		color: var(--ink);
+		margin: 0 0 34px;
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2px;
+		background: var(--hair);
+		border: 1px solid var(--hair);
+		border-radius: 10px;
+		overflow: hidden;
+	}
+	.feature {
+		background: var(--surface);
+		padding: 18px 20px;
+	}
+	.feature .label {
+		font-weight: 600;
+		font-size: 14.5px;
+		margin-bottom: 4px;
+	}
+	.feature .desc {
+		font-size: 13.5px;
+		color: var(--muted);
+		line-height: 1.5;
+	}
+
+	.status-note {
+		margin-top: 26px;
+		font-size: 13px;
+		color: var(--muted);
+		padding: 14px 18px;
+		border-radius: 8px;
+		background: var(--surface-2);
+		border: 1px dashed var(--hair);
+	}
+
+	@media (max-width: 560px) {
+		.features {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

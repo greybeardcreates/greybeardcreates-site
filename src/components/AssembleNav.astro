@@ -1,0 +1,37 @@
+---
+interface Props {
+	appName?: string;
+}
+
+const { appName } = Astro.props;
+---
+
+<nav class="assemble-nav">
+	<a class="wordmark futura" href="/assemble">Assemble</a>
+	{appName && <span class="crumb">/ {appName}</span>}
+</nav>
+
+<style>
+	.assemble-nav {
+		display: flex;
+		align-items: baseline;
+		gap: 10px;
+		margin-bottom: 56px;
+		font-size: 15px;
+	}
+
+	.wordmark {
+		text-decoration: none;
+		letter-spacing: 0.02em;
+		color: var(--ink);
+		transition: color 0.15s ease;
+	}
+
+	.wordmark:hover {
+		color: var(--accent, #d9a441);
+	}
+
+	.crumb {
+		color: var(--faint);
+	}
+</style>
