@@ -1,0 +1,120 @@
+---
+import AssembleLayout from '../../layouts/AssembleLayout.astro';
+
+const accent = '#5267B8';
+---
+
+<AssembleLayout
+	title="Assemble Crew"
+	description="Confirm or decline a serving request."
+	accent={accent}
+>
+	<div class="card">
+		<div id="state-loading">
+			<p class="eyebrow mono">Assemble Crew</p>
+			<h1 class="futura">One moment…</h1>
+			<p class="body-text">Recording your response.</p>
+		</div>
+
+		<div id="state-confirmed" hidden>
+			<p class="eyebrow mono">Assemble Crew</p>
+			<h1 class="futura"><span class="accent-text">You're confirmed</span></h1>
+			<p class="body-text" id="confirmed-text"></p>
+		</div>
+
+		<div id="state-declined" hidden>
+			<p class="eyebrow mono">Assemble Crew</p>
+			<h1 class="futura">Response recorded</h1>
+			<p class="body-text" id="declined-text"></p>
+		</div>
+
+		<div id="state-error" hidden>
+			<p class="eyebrow mono">Assemble Crew</p>
+			<h1 class="futura">Link not valid</h1>
+			<p class="body-text" id="error-text">
+				This invitation link is missing, malformed, or no longer valid. If you think that's
+				wrong, reach out to whoever scheduled you.
+			</p>
+		</div>
+	</div>
+</AssembleLayout>
+
+<script>
+	const FUNCTION_URL = 'https://honkodnanslvmvefgivx.supabase.co/functions/v1/crew-respond';
+
+	function show(id: string) {
+		for (const el of document.querySelectorAll('.card > div')) {
+			(el as HTMLElement).hidden = el.id !== id;
+		}
+	}
+
+	async function run() {
+		const params = new URLSearchParams(window.location.search);
+		const token = params.get('token');
+		const action = params.get('action');
+
+		if (!token || (action !== 'confirm' && action !== 'decline')) {
+			show('state-error');
+			return;
+		}
+
+		try {
+			const res = await fetch(`${FUNCTION_URL}?token=${encodeURIComponent(token)}&action=${action}`);
+			const data = await res.json();
+
+			if (!data.ok) {
+				show('state-error');
+				return;
+			}
+
+			if (data.status === 'confirmed') {
+				document.getElementById('confirmed-text')!.textContent =
+					`Thanks for confirming as ${data.roleName} for ${data.eventName}. See you there!`;
+				show('state-confirmed');
+			} else {
+				document.getElementById('declined-text')!.textContent =
+					`You've declined ${data.roleName} for ${data.eventName}. Thanks for letting us know.`;
+				show('state-declined');
+			}
+		} catch {
+			show('state-error');
+		}
+	}
+
+	run();
+</script>
+
+<style>
+	.card {
+		max-width: 440px;
+		margin: 0 auto;
+		padding: 72px 0;
+		text-align: center;
+	}
+
+	.eyebrow {
+		font-size: 12.5px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--faint);
+		margin-bottom: 18px;
+	}
+
+	h1 {
+		font-size: clamp(26px, 6vw, 34px);
+		font-weight: 500;
+		margin: 0 0 16px;
+		text-wrap: balance;
+	}
+
+	.accent-text {
+		color: var(--accent);
+	}
+
+	.body-text {
+		font-size: 16px;
+		color: var(--muted);
+		line-height: 1.6;
+		margin: 0;
+	}
+</style>
